@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-
 const RootPage = () => {
   return (
     <div>
