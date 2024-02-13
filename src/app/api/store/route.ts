@@ -17,7 +17,10 @@ export async function POST(req: NextRequest) {
     });
 
     if (existingStore) {
-      return NextResponse.json({ error: { name: "Store name already exists" } }, { status: 400 });
+      return NextResponse.json(
+        [{ type: "manual", name: "name", message: "Store name already exists" }],
+        { status: 400 }
+      );
     }
 
     const newStore = await prismadb.store.create({
