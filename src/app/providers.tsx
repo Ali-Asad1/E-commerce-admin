@@ -1,3 +1,5 @@
+"use client";
+
 import { ClerkProvider } from "@clerk/nextjs";
 
 import ModalProvider from "@/providers/ModalProvider";
