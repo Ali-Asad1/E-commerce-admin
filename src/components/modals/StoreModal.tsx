@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,7 @@ const formSchema = z.object({
 
 const StoreModal = () => {
   const { isOpen: storeModalIsOpen, onClose: storeModalOnClose } = useStoreModal();
+  const { push } = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +44,9 @@ const StoreModal = () => {
       if (storeResponse.response?.status === 400) {
         setErrorsForInputs(form.setError, storeResponse.response.data);
       }
+    } else {
+      storeModalOnClose();
+      push(`/${storeResponse.id}`);
     }
   };
 
