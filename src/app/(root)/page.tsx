@@ -1,8 +1,14 @@
+"use client";
+
+import { useEffect } from "react";
+
+import { useStoreModal } from "@/hooks/states/useStoreModal";
+
 const RootPage = () => {
-  return (
-    <div>
-      <h1>welcome to home page</h1>
-    </div>
-  );
+  const { onOpen } = useStoreModal();
+  useEffect(() => {
+    onOpen();
+  }, []);
+  return null;
 };
 export default RootPage;
