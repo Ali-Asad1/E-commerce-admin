@@ -46,7 +46,7 @@ const StoreModal = () => {
       }
     } else {
       storeModalOnClose();
-      push(`/${storeResponse.id}`);
+      window.location.assign(`/${storeResponse.id}`);
     }
   };
 
