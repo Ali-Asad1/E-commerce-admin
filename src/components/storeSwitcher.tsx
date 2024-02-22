@@ -9,7 +9,7 @@ import {
   Store as StoreIcon,
 } from "lucide-react";
 
-import { cn } from "@/utils/cnUtils";
+import { cn } from "@/utils/utils";
 import { useStoreModal } from "@/hooks/states/useStoreModal";
 import { StoreType } from "@/types/Store.type";
 
