@@ -1,4 +1,4 @@
-import SettingsForm from "./components/settingsForm";
+import SettingsForm from "./_components/settingsForm";
 
 const Page = () => {
   return (
