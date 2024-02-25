@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
+import { NextRequest, NextResponse } from "next/server";
 
 import prismadb from "@/lib/prismadb";
 
@@ -31,6 +31,19 @@ export async function PATCH(req: NextRequest, { params }: { params: { storeId: s
 
     const { name } = body;
     if (!name) return new NextResponse("Name is required", { status: 400 });
+
+    const existingStore = await prismadb.store.findFirst({
+      where: {
+        id: params.storeId,
+        userId,
+      },
+    });
+
+    if (existingStore) {
+      return NextResponse.json([{ type: "manual", name: "name", message: "Store name already exists" }], {
+        status: 400,
+      });
+    }
 
     const store = await prismadb.store
       .update({
