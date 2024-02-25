@@ -1,19 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
 import {
   Check as CheckIcon,
   ChevronsUpDown as ChevronsUpDownIcon,
   PlusCircle as PlusCircleIcon,
   Store as StoreIcon,
 } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 
-import { cn } from "@/utils/utils";
-import { useStoreModal } from "@/hooks/states/useStoreModal";
 import { StoreType } from "@/types/Store.type";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useStoreModal } from "@/hooks/states/useStoreModal";
+
+import { cn } from "@/utils/utils";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -24,6 +25,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface StoreSwitcherProps extends React.ComponentPropsWithoutRef<typeof PopoverTrigger> {
   items: Pick<StoreType, "name" | "id">[];
@@ -74,16 +76,16 @@ const StoreSwitcher: React.FC<StoreSwitcherProps> = ({ items = [], className }) 
               {formattedItems.map((item) => (
                 <CommandItem
                   key={item.value}
-                  onSelect={() => onStoreSelect(item)}
+                  onSelect={() => {
+                    if (item.value === currentStore?.value) return null;
+                    onStoreSelect(item);
+                  }}
                   className="text-sm"
                 >
                   <StoreIcon className="w-4 h-4 mr-2" />
                   {item.label}
                   <CheckIcon
-                    className={cn(
-                      "w-4 h-4 ml-auto",
-                      item.value === currentStore?.value ? "opacity-100" : "opacity-0"
-                    )}
+                    className={cn("w-4 h-4 ml-auto", item.value === currentStore?.value ? "opacity-100" : "opacity-0")}
                   />
                 </CommandItem>
               ))}

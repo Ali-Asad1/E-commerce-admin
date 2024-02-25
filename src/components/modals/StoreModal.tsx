@@ -1,26 +1,21 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { createStore } from "@/services/storeService";
 
 import { useStoreModal } from "@/hooks/states/useStoreModal";
-import { createStore } from "@/services/storeService";
-import { setErrorsForInputs } from "@/utils/fromUtils";
-import Modal from "@/components/ui/modal";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { setErrorsForInputs } from "@/utils/fromUtils";
+
 import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import Modal from "@/components/ui/modal";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required!"),
