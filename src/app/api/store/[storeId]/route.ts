@@ -5,7 +5,7 @@ import prismadb from "@/lib/prismadb";
 
 export async function GET(req: NextRequest, { params }: { params: { storeName: string } }) {
   try {
-    const {userId} = auth();
+    const { userId } = auth();
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
     const store = await prismadb.store.findFirst({
@@ -40,6 +40,28 @@ export async function PATCH(req: NextRequest, { params }: { params: { storeId: s
         },
         data: {
           name,
+        },
+      })
+      .catch(() => null);
+
+    if (!store) return new NextResponse("Not Found", { status: 404 });
+
+    return NextResponse.json(store);
+  } catch (err) {
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest, { params }: { params: { storeId: string } }) {
+  try {
+    const { userId } = auth();
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
+
+    const store = await prismadb.store
+      .delete({
+        where: {
+          id: params.storeId,
+          userId,
         },
       })
       .catch(() => null);
