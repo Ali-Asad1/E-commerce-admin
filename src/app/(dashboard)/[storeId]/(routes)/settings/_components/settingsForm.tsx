@@ -1,9 +1,13 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AxiosError } from "axios";
 import { Trash as TrashIcon } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { editStore } from "@/services/storeService";
 
 import { StoreType } from "@/types/Store.type";
 
@@ -22,13 +26,20 @@ const formSchema = z.object({
 });
 
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
+  const params = useParams();
+  const { push, refresh } = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    const response = await editStore(params.storeId as string, data.name);
+    console.log(response);
+    if (!(response instanceof AxiosError)) {
+      refresh();
+    }
   };
 
   return (
@@ -57,7 +68,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
               )}
             />
           </div>
-          <Button type="submit" className="ml-auto">
+          <Button type="submit" className="ml-auto" disabled={form.formState.isSubmitting}>
             Save changes
           </Button>
         </form>
