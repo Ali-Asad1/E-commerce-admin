@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { storeId: s
 
     const existingStore = await prismadb.store.findFirst({
       where: {
-        id: params.storeId,
+        name,
         userId,
       },
     });
