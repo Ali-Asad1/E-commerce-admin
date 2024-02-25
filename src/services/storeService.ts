@@ -33,7 +33,7 @@ export const createStore = async (name: string): Promise<StoreType | AxiosError<
   }
 };
 
-export const editStore = async (storeId: string, name: string): Promise<StoreType | AxiosError<string>> => {
+export const editStore = async (storeId: string, name: string): Promise<StoreType | AxiosError<any>> => {
   const loadingToastId = toast.loading("Loading...");
   try {
     const response: AxiosResponse<StoreType> = await axios.patch(`/api/store/${storeId}`, {
@@ -46,7 +46,7 @@ export const editStore = async (storeId: string, name: string): Promise<StoreTyp
 
     return response.data;
   } catch (error) {
-    const responseError = error as AxiosError<string>;
+    const responseError = error as AxiosError<any>;
 
     if (responseError.response?.status === 400) {
       toast.error(responseError.response.data, {
