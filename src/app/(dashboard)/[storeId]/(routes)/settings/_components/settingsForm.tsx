@@ -11,6 +11,8 @@ import { editStore } from "@/services/storeService";
 
 import { StoreType } from "@/types/Store.type";
 
+import { setErrorsForInputs } from "@/utils/fromUtils";
+
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
@@ -35,9 +37,13 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   });
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    const response = await editStore(params.storeId as string, data.name);
-    console.log(response);
-    if (!(response instanceof AxiosError)) {
+    const editStoreResponse = await editStore(params.storeId as string, data.name);
+
+    if (editStoreResponse instanceof AxiosError) {
+      if (editStoreResponse.response?.status === 400) {
+        setErrorsForInputs(form.setError, editStoreResponse.response.data);
+      }
+    } else {
       refresh();
     }
   };
