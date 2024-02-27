@@ -4,15 +4,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosError } from "axios";
 import { Trash as TrashIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { editStore } from "@/services/storeService";
+import { deleteStore, editStore } from "@/services/storeService";
 
 import { StoreType } from "@/types/Store.type";
 
 import { setErrorsForInputs } from "@/utils/fromUtils";
 
+import AlertModal from "@/components/modals/alertModal";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
@@ -28,6 +30,9 @@ const formSchema = z.object({
 });
 
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const params = useParams();
   const { push, refresh } = useRouter();
 
@@ -48,17 +53,28 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     }
   };
 
+  const handleDelete = async () => {
+    setIsLoading(true);
+    const deleteResponse = await deleteStore(params.storeId as string);
+    if (!(deleteResponse instanceof AxiosError)) {
+      window.location.assign("/");
+    }
+    setIsLoading(false);
+    setIsOpen(false);
+  };
+
   return (
     <>
+     <AlertModal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleDelete} loading={isLoading} />
       <div className="flex items-center justify-between">
         <Heading title="Setting" description="test description" />
-        <Button variant="destructive" size="icon">
+        <Button onClick={() => setIsOpen(true)} variant="destructive" size="icon">
           <TrashIcon className="h-4 w-4" />
         </Button>
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex w-full flex-col space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col w-full space-y-8">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
