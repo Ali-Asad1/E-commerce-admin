@@ -1,10 +1,10 @@
-import { redirect } from "next/navigation";
 import { UserButton, auth } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 import prismadb from "@/lib/prismadb";
 
-import StoreSwitcher from "@/components/storeSwitcher";
 import MainNav from "@/components/mainNav";
+import StoreSwitcher from "@/components/storeSwitcher";
 
 async function getUserStores() {
   const user = auth();
@@ -28,7 +28,7 @@ const Navbar = async () => {
 
   return (
     <div className="border-b">
-      <div className="h-16 flex items-center px-4">
+      <div className="flex h-16 items-center px-4">
         <StoreSwitcher items={stores} />
         <MainNav className="mx-6" />
         <div className="ml-auto">

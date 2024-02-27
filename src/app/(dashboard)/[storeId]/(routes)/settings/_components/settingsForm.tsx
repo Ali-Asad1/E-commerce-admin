@@ -65,7 +65,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   return (
     <>
-      <AlertModal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleDelete} loading={isLoading} />
+     <AlertModal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleDelete} loading={isLoading} />
       <div className="flex items-center justify-between">
         <Heading title="Setting" description="test description" />
         <Button onClick={() => setIsOpen(true)} variant="destructive" size="icon">

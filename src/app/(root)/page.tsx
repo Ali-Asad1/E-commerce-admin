@@ -5,10 +5,10 @@ import { useEffect } from "react";
 import { useStoreModal } from "@/hooks/states/useStoreModal";
 
 const RootPage = () => {
-  const { onOpen } = useStoreModal();
+  const { onOpen, isOpen } = useStoreModal();
   useEffect(() => {
-    onOpen();
-  }, []);
+    if (!isOpen) onOpen();
+  }, [isOpen, onOpen]);
   return null;
 };
 export default RootPage;
