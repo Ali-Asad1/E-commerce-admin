@@ -60,3 +60,19 @@ export const editStore = async (storeId: string, name: string): Promise<StoreTyp
     return responseError;
   }
 };
+
+export const deleteStore = async (storeId: string): Promise<any> => {
+  const loadingToastId = toast.loading("Loading...");
+  try {
+    const response: AxiosResponse<any> = await axios.delete(`/api/store/${storeId}`);
+    toast.success("Store deleted", {
+      id: loadingToastId,
+    });
+    return response.data;
+  } catch (error) {
+    toast.error("Something went wrong", {
+      id: loadingToastId,
+    });
+    return error as AxiosError;
+  }
+};
