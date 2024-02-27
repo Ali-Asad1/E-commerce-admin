@@ -68,7 +68,7 @@ const StoreModal = () => {
                 </FormItem>
               )}
             />
-            <div className="pt-6 space-x-2 flex items-center justify-end">
+            <div className="flex items-center justify-end space-x-2 pt-6">
               <Button
                 variant="outline"
                 type="button"

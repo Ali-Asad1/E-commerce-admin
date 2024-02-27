@@ -4,7 +4,7 @@ import Loader from "@/components/ui/Loader";
 
 export default function Loading() {
   return (
-    <div className="w-full h-[calc(100vh-121px)] flex items-center justify-center">
+    <div className="flex h-[calc(100vh-121px)] w-full items-center justify-center">
       <Loader />
     </div>
   );

@@ -30,7 +30,7 @@ const MainNav: React.FC<React.HTMLAttributes<HTMLElement>> = ({ className, ...pr
           href={item.href}
           className={cn(
             "text-sm font-medium transition-colors hover:text-primary",
-            item.active ? "text-black dark:text-white" : "text-muted-foreground"
+            item.active ? "text-black dark:text-white" : "text-muted-foreground",
           )}
         >
           {item.label}

@@ -50,15 +50,15 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Heading title="Setting" description="test description" />
         <Button variant="destructive" size="icon">
-          <TrashIcon className="w-4 h-4" />
+          <TrashIcon className="h-4 w-4" />
         </Button>
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col w-full space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex w-full flex-col space-y-8">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
