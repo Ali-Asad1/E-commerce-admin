@@ -45,7 +45,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, onRemove, value, di
       const loadingToastId = toast.loading("Loading...");
 
       try {
-        await edgestore.publicFiles.upload({
+        const response = await edgestore.publicFiles.upload({
           file,
           options: {
             manualFileName: file.name,
@@ -54,7 +54,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, onRemove, value, di
             setProgress(progress);
           },
         });
-
+        onChange(response.url);
         toast.success("Image successfully uploaded", {
           id: loadingToastId,
         });
