@@ -66,3 +66,24 @@ export const editBillboard = async (
     return error;
   }
 };
+
+export const deleteBillboard = async (
+  storeId: string,
+  billboardId: string,
+): Promise<AxiosResponse<any> | AxiosError<any>> => {
+  const loadingToastId = toast.loading("Loading...");
+  try {
+    const response = await axios.delete(`/api/store/${storeId}/billboard/${billboardId}`);
+
+    toast.success("Billboard deleted", {
+      id: loadingToastId,
+    });
+
+    return response.data;
+  } catch (error: any) {
+    toast.error("Something went wrong", {
+      id: loadingToastId,
+    });
+    return error;
+  }
+};
