@@ -10,7 +10,7 @@ import { createStore } from "@/services/storeService";
 
 import { useStoreModal } from "@/hooks/states/useStoreModal";
 
-import { setErrorsForInputs } from "@/utils/fromUtils";
+import { setErrorsForInputs } from "@/utils/formUtils";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
