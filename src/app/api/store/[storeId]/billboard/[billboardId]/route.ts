@@ -39,3 +39,32 @@ export async function PATCH(req: NextRequest, { params }: { params: { storeId: s
     return new NextResponse("Internal error", { status: 500 });
   }
 }
+
+export async function DELETE(req: NextRequest, { params }: { params: { storeId: string; billboardId: string } }) {
+  try {
+    const { userId } = auth();
+
+    if (!userId) return new NextResponse("Unauthorized", { status: 404 });
+
+    const storeByUserId = await prismadb.store.findFirst({
+      where: {
+        id: params.storeId,
+        userId,
+      },
+    });
+
+    if (!storeByUserId) {
+      return new NextResponse("Unauthorized", { status: 405 });
+    }
+
+    const editedBillboard = await prismadb.billboard.delete({
+      where: {
+        id: params.billboardId,
+      },
+    });
+
+    return NextResponse.json(editedBillboard);
+  } catch (err) {
+    return new NextResponse("Internal error", { status: 500 });
+  }
+}
