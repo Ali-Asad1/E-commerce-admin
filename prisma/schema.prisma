@@ -18,8 +18,8 @@ model Store {
 
 model Billboard {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  sotreId   String   @db.ObjectId
-  store     Store    @relation(fields: [sotreId], references: [id], onDelete: Cascade)
+  storeId   String   @db.ObjectId
+  store     Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
   label     String
   imageUrl  String
   createdAt DateTime @default(now())
