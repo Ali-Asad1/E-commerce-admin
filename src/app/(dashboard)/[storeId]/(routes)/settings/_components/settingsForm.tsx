@@ -12,7 +12,7 @@ import { deleteStore, editStore } from "@/services/storeService";
 
 import { StoreType } from "@/types/Store.type";
 
-import { setErrorsForInputs } from "@/utils/fromUtils";
+import { setErrorsForInputs } from "@/utils/formUtils";
 
 import AlertModal from "@/components/modals/alertModal";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const params = useParams();
-  const { push, refresh } = useRouter();
+  const { refresh } = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,7 +65,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   return (
     <>
-     <AlertModal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleDelete} loading={isLoading} />
+      <AlertModal isOpen={isOpen} onClose={() => setIsOpen(false)} onConfirm={handleDelete} loading={isLoading} />
       <div className="flex items-center justify-between">
         <Heading title="Setting" description="test description" />
         <Button onClick={() => setIsOpen(true)} variant="destructive" size="icon">
@@ -74,7 +74,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col w-full space-y-8">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex w-full flex-col space-y-8">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}

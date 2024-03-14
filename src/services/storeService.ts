@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 import { StoreType } from "@/types/Store.type";
 
-import { FormErrorListType } from "@/utils/fromUtils";
+import { FormErrorListType } from "@/utils/formUtils";
 
 export const createStore = async (name: string): Promise<StoreType | AxiosError<FormErrorListType>> => {
   const loadingToastId = toast.loading("Loading...");

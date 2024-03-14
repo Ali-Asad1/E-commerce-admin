@@ -20,6 +20,11 @@ const MainNav: React.FC<React.HTMLAttributes<HTMLElement>> = ({ className, ...pr
       href: `/${params.storeId}/settings`,
       active: pathname === `/${params.storeId}/settings`,
     },
+    {
+      label: "Billboards",
+      href: `/${params.storeId}/billboards`,
+      active: pathname.includes(`/${params.storeId}/billboards`),
+    },
   ];
 
   return (
