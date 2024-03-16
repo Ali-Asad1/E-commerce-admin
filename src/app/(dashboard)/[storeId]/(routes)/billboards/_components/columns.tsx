@@ -2,6 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
+import HeaderAction from "./headerAction";
+
 export type BillboardColumn = {
   id: string;
   label: string;
@@ -11,10 +13,10 @@ export type BillboardColumn = {
 export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "label",
-    header: "Label",
+    header: ({ column }) => <HeaderAction column={column} label="Label" />,
   },
   {
     accessorKey: "createAt",
-    header: "Date",
+    header: ({ column }) => <HeaderAction column={column} label="Date" />,
   },
 ];
