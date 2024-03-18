@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
+import CellAction from "./cellAciton";
 import HeaderAction from "./headerAction";
 
 export type BillboardColumn = {
@@ -18,5 +19,9 @@ export const columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "createAt",
     header: ({ column }) => <HeaderAction column={column} label="Date" />,
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];
