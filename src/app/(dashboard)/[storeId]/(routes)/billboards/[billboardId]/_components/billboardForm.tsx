@@ -58,8 +58,8 @@ const BillboardsForm: React.FC<BillboardsFormProps> = ({ initialData }) => {
       response = await createBillboard(params.storeId as string, data.label, data.imageUrl);
     }
     if (!(response instanceof AxiosError)) {
-      refresh();
       push(`/${params.storeId}/billboards`);
+      refresh();
     }
   };
 
@@ -67,8 +67,8 @@ const BillboardsForm: React.FC<BillboardsFormProps> = ({ initialData }) => {
     setIsLoading(true);
     const response = await deleteBillboard(params.storeId as string, params.billboardId as string);
     if (!(response instanceof AxiosError)) {
-      refresh();
       push(`/${params.storeId}/billboards`);
+      refresh();
     }
     setIsLoading(false);
     setIsOpen(false);
